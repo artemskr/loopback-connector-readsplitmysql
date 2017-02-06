@@ -1,10 +1,10 @@
 {
-  "name": "loopback-connector-mysql",
+  "name": "loopback-connector-readsplitmysql",
   "version": "2.4.1",
   "publishConfig": {
     "tag": "lts"
   },
-  "description": "MySQL connector for loopback-datasource-juggler",
+  "description": "Read Split MySQL connector for loopback-datasource-juggler",
   "main": "index.js",
   "scripts": {
     "pretest": "node pretest.js",
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/strongloop/loopback-connector-mysql.git"
+    "url": "https://github.com/jswift/loopback-connector-readsplitmysql.git"
   },
   "license": "MIT"
 }
