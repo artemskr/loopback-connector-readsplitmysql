@@ -7,6 +7,12 @@ For complete documentation of the mysql connector, see [StrongLoop Documentation
 Read/Write splitting allows loopback to take advantage of Read-Replicas by directing all read-only queries
 to faster read replica slaves, whilst writes are sent to the master database.
 
+----
+
+**Note:** This is not yet ready for use, it is a *proof-of-concept* we are working on.
+
+----
+
 ## Installation
 
 ````sh
