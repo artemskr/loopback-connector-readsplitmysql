@@ -9,7 +9,8 @@ to faster read replica slaves, whilst writes are sent to the master database.
 
 ----
 
-**Note:** This is not yet ready for use, it is a *proof-of-concept* we are working on.
+**Note:** This is an experimental library, it has not had much use in the wild.
+We welcome bug reports, feedback and pull requests!
 
 ----
 
