@@ -1,52 +1,37 @@
-## loopback-connector-mysql
-
+# loopback-connector-readsplitmysql
+This is an entirely compatible fork of the mysql connector module that adds read/write splitting.
 `loopback-connector-mysql` is the MySQL connector module for [loopback-datasource-juggler](https://github.com/strongloop/loopback-datasource-juggler/).
 
-For complete documentation, see [StrongLoop Documentation | MySQL Connector](http://docs.strongloop.com/display/LB/MySQL+connector).
+For complete documentation of the mysql connector, see [StrongLoop Documentation | MySQL Connector](http://loopback.io/doc/en/lb2/MySQL-connector.html).
+
+Read/Write splitting allows loopback to take advantage of Read-Replicas by directing all read-only queries
+to faster read replica slaves, whilst writes are sent to the master database.
+
+----
+
+**Note:** This is an experimental library, it has not had much use in the wild.
+We welcome bug reports, feedback and pull requests!
+
+----
 
 ## Installation
 
 ````sh
-npm install loopback-connector-mysql --save
+npm install loopback-connector-readsplitmysql --save
 ````
 
 ## Basic use
+The read split connector can be used in-place of the latest 2x mysql connector. With no additional
+configuration it will continue to operate against one master database.
 
-To use it you need `loopback-datasource-juggler`.
+To add a read-replica host, add a `readonly` object to the settings object. All fields are optional.
+The database connection options will default to the same as the master connection. To disable the read
+client, either don't set the `readonly` options at all or set the `writeRatio` to 1.
 
-1. Setup dependencies in `package.json`:
-
-    ```json
-    {
-      ...
-      "dependencies": {
-        "loopback-datasource-juggler": "latest",
-        "loopback-connector-mysql": "latest"
-      },
-      ...
-    }
-    ```
-
-2. Use:
-
-    ```javascript
-        var DataSource = require('loopback-datasource-juggler').DataSource;
-        var dataSource = new DataSource('mysql', {
-            host: 'localhost',
-            port: 3306,
-            database: 'mydb',
-            username: 'myuser',
-            password: 'mypass'
-        });
-    ```
-    You can optionally pass a few additional parameters supported by [`node-mysql`](https://github.com/felixge/node-mysql),
-    most particularly `password` and `collation`. `Collation` currently defaults
-    to `utf8_general_ci`. The `collation` value will also be used to derive the
-    connection charset.
-
-## Running Tests
-
-The tests in this repository are mainly integration tests, meaning you will need to run them using our preconfigured test server.
-
-1. Ask a core developer for instructions on how to set up test server credentials on your machine
-2. `npm test`
+| Option                | Default    | Description                                                      |
+| --------------------- | ---------- | ---------------------------------------------------------------- |
+| `readonly.writeRatio` | 0.3        | The fraction of connectionLimit to dedicate to write connections |
+| `readonly.host`       | `host`     | The host for read-only queries                                   |
+| `readonly.port`       | `port`     | The port for read-only queries                                   |
+| `readonly.user`       | `user`     | The user for read-only queries                                   |
+| `readonly.password`   | `password` | The password for read-only queries                               |
